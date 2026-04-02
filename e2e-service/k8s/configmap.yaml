@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: e2e-service
+  namespace: default
+data:
+  DB_HOST: "postgres.database.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_USER: "checkout"
+  DB_PASSWORD: "checkout"
+  KAFKA_CONN: "kafka:9092"
+  CHECKOUT_SERVICE_DNS: "http://checkout-service:3000"
+  

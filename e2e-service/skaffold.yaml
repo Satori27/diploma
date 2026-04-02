@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta26  # подходящая для 2.17.2 версия
+kind: Config
+metadata:
+  name: e2e-service
+build:
+  local:
+    push: true
+    useBuildkit: true
+  artifacts:
+    - image: 192.168.122.10:32000/e2e-service
+      context: .
+deploy:
+  kubectl:
+    manifests:
+      - k8s/deployment.yaml
+      - k8s/service.yaml
+      - k8s/configmap.yaml
+      - k8s/service-monitor.yaml
+      - k8s/role_binding.yaml

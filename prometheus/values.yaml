@@ -1,0 +1,4 @@
+prometheus:
+  prometheusSpec:
+    retention: 2d
+    retentionSize: 1GB
