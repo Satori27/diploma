@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2e-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: e2e-service
+  template:
+    metadata:
+      labels:
+        app: e2e-service
+    spec:
+      serviceAccountName: e2e-service
+      containers:
+      - name: e2e
+        envFrom:
+        - configMapRef:
+            name: e2e-service
+        image: 192.168.122.10:32000/e2e-service:dev
+        ports:
+        - containerPort: 3002

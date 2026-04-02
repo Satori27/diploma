@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkout-service
+  template:
+    metadata:
+      labels:
+        app: checkout-service
+    spec:
+      containers:
+      - name: checkout-service
+        image: 192.168.122.10:32000/checkout-service:dev
+        envFrom:
+        - configMapRef:
+            name: checkout-service
+        - secretRef:
+            name: checkout-secret
+        ports:
+        - containerPort: 3000
+      - name: outbox-service
+        image: 192.168.122.10:32000/outbox-service:dev
+        envFrom:
+        - configMapRef:
+            name: checkout-service
+        - secretRef:
+            name: checkout-secret
+        ports:
+          - name: metrics
+            containerPort: 3001
